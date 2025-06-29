@@ -1,15 +1,14 @@
-# Etapa de construcción
+# Build
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests
 
-# Etapa de ejecución
+# Runtime
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
-COPY src/main/resources/Wallet_BDFullStack3 /app/wallet
 
 EXPOSE 8083
 
